@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
-
 @SpringBootApplication
 @RestControllerAdvice
 public class RentACarApplication {
@@ -24,7 +22,7 @@ public class RentACarApplication {
 
     @ExceptionHandler
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public ProblemDetails handleBusinessException(BusinessException businessException){
+    public ProblemDetails handleBusinessException(BusinessException businessException) {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setMessage(businessException.getMessage());
         return problemDetails;
@@ -32,10 +30,10 @@ public class RentACarApplication {
 
     @ExceptionHandler
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public ProblemDetails handleValidationException(MethodArgumentNotValidException methodArgumentNotValidException){
-        ValidationProblemDetails validationProblemDetails = new ValidationProblemDetails ();
+    public ProblemDetails handleValidationException(MethodArgumentNotValidException methodArgumentNotValidException) {
+        ValidationProblemDetails validationProblemDetails = new ValidationProblemDetails();
         validationProblemDetails.setMessage("VALIDATION EXCEPTION");
-        for (FieldError fieldError: methodArgumentNotValidException.getBindingResult().getFieldErrors()){
+        for (FieldError fieldError : methodArgumentNotValidException.getBindingResult().getFieldErrors()) {
             validationProblemDetails.getValidationErrors().put(fieldError.getField(), fieldError.getDefaultMessage());
         }
 
